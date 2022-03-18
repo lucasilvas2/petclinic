@@ -11,10 +11,20 @@ import java.util.Optional;
 @Service
 public class DonoService {
 
-    @Autowired
-    private DonoRepository donoRepository;
+    private final DonoRepository donoRepository;
 
-    public List<Dono> buscarDonos(){
+    public DonoService(DonoRepository donoRepository){
+        this.donoRepository = donoRepository;
+    }
+
+    public Dono cadastrar(Dono dono){
+        return donoRepository.save(dono);
+    }
+
+    public void deletar(Long id){
+        donoRepository.deleteById(id);
+    }
+    public List<Dono> buscarTodosDonos(){
         return donoRepository.findAll();
     }
 
@@ -22,15 +32,11 @@ public class DonoService {
         return donoRepository.findByNome(nome);
     }
 
-    public Optional<Dono> buscarDonoPorId(Long id){
-        return donoRepository.findById(id);
-    }
+//    public Optional<Dono> buscarDonoPorId(Long id){
+//        return donoRepository.findById(id);
+//    }
 
-    public Dono salvar(Dono dono){
-        return donoRepository.save(dono);
-    }
-
-    public void deletar(Long id){
-        donoRepository.deleteById(id);
+    public Dono buscarDonoPorID(Long id){
+        return donoRepository.findById(id).isPresent() ? donoRepository.findById(id).get() : null;
     }
 }

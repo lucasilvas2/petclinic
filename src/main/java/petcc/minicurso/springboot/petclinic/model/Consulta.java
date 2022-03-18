@@ -9,8 +9,8 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idConsulta;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Status statusConsulta;
+    @Column(columnDefinition = "TEXT")
+    private String statusConsulta;
 
     @Column(columnDefinition = "DATE")
     private LocalDate data;
@@ -31,11 +31,11 @@ public class Consulta {
         this.idConsulta = idConsulta;
     }
 
-    public Status getStatusConsulta() {
+    public String getStatusConsulta() {
         return statusConsulta;
     }
 
-    public void setStatusConsulta(Status statusConsulta) {
+    public void setStatusConsulta(String statusConsulta) {
         this.statusConsulta = statusConsulta;
     }
 

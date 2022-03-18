@@ -1,41 +1,40 @@
 package petcc.minicurso.springboot.petclinic.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import petcc.minicurso.springboot.petclinic.model.Consulta;
-import petcc.minicurso.springboot.petclinic.model.Status;
 import petcc.minicurso.springboot.petclinic.repository.ConsultaRepository;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ConsultaService {
 
-    @Autowired
-    private ConsultaRepository consultaRepository;
+    private final ConsultaRepository consultaRepository;
+    private final VeterinarioService veterinarioService;
+    private final PetService petService;
 
-    public List<Consulta> buscarConsultas(){
-        return consultaRepository.findAll();
-    }
-    public List<Consulta> buscarPorData(LocalDate data){
-        return consultaRepository.findByData(data);
-    }
-
-    public List<Consulta> buscarPorStatus(Status status){
-        return consultaRepository.findByStatus(status);
+    public ConsultaService(ConsultaRepository consultaRepository, VeterinarioService veterinarioService, PetService petService) {
+        this.consultaRepository = consultaRepository;
+        this.veterinarioService = veterinarioService;
+        this.petService = petService;
     }
 
-    public Optional<Consulta> buscarPorId(Long id){
-        return consultaRepository.findById(id);
-    }
-
-    public Consulta salvar(Consulta consulta){
+    public Consulta salvar(Consulta consulta, Long id_veterinario, Long id_pet){
+        consulta.setVeterinario(veterinarioService.buscarPorId(id_veterinario));
+        consulta.setPet(petService.buscarPorId(id_pet));
         return consultaRepository.save(consulta);
     }
 
     public void deletar(Long id){
         consultaRepository.deleteById(id);
     }
+
+    public List<Consulta> buscarConsultas(){
+        return consultaRepository.findAll();
+    }
+
+    public Consulta buscarPorId(Long id){
+        return consultaRepository.findById(id).isPresent() ? consultaRepository.findById(id).get() : null;
+    }
+
 }

@@ -1,20 +1,32 @@
 package petcc.minicurso.springboot.petclinic.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import petcc.minicurso.springboot.petclinic.model.Dono;
 import petcc.minicurso.springboot.petclinic.model.Pet;
 import petcc.minicurso.springboot.petclinic.repository.PetRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PetService {
 
-    @Autowired
-    private PetRepository petRepository;
+    private final PetRepository petRepository;
+    private final DonoService donoService;
 
-    public List<Pet> buscarPets(){
+    public PetService(PetRepository petRepository, DonoService donoService){
+        this.petRepository = petRepository;
+        this.donoService = donoService;
+    }
+    public Pet cadastrar(Pet pet, Long id_pessoa){
+        pet.setDono(donoService.buscarDonoPorID(id_pessoa));
+        return petRepository.save(pet);
+    }
+
+    public void deletar(Long id){
+        petRepository.deleteById(id);
+    }
+
+    public List<Pet> buscarTodosPets(){
         return petRepository.findAll();
     }
 
@@ -22,15 +34,9 @@ public class PetService {
         return petRepository.findByNome(nome);
     }
 
-    public Optional<Pet> buscarPorId(Long id){
-        return petRepository.findById(id);
+    public Pet buscarPorId(Long id){
+        return petRepository.findById(id).isPresent() ? petRepository.findById(id).get() : null;
     }
 
-    public Pet salvar(Pet pet){
-        return petRepository.save(pet);
-    }
 
-    public void deletar(Long id){
-        petRepository.deleteById(id);
-    }
 }
