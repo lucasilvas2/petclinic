@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idPet;
+    private Long idPet;
 
     @Column(columnDefinition = "TEXT")
     private String nome;
@@ -16,14 +16,14 @@ public class Pet {
     private LocalDate aniversario;
 
     @ManyToOne
-    @JoinColumn(name = "id_pessoa")
+    @JoinColumn(name = "id_dono")
     private Dono dono;
 
-    public long getIdPet() {
+    public Long getIdPet() {
         return idPet;
     }
 
-    public void setIdPet(long idPet) {
+    public void setIdPet(Long idPet) {
         this.idPet = idPet;
     }
 

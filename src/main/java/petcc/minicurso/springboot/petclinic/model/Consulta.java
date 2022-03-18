@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idConsulta;
+    private Long idConsulta;
 
     @Enumerated(EnumType.ORDINAL)
     private Status statusConsulta;

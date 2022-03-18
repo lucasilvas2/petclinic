@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 public class Pessoa {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long idPessoa;
+    private Long idPessoa;
 
     @Column(columnDefinition = "TEXT")
     private String nome;
@@ -20,7 +20,7 @@ public class Pessoa {
         return idPessoa;
     }
 
-    public void setIdPessoa(Integer idPessoa) {
+    public void setIdPessoa(Long idPessoa) {
         this.idPessoa = idPessoa;
     }
 
