@@ -19,7 +19,7 @@ public class ConsultaService {
         this.petService = petService;
     }
 
-    public Consulta salvar(Consulta consulta, Long id_veterinario, Long id_pet){
+    public Consulta cadastrar(Consulta consulta, Long id_veterinario, Long id_pet){
         consulta.setVeterinario(veterinarioService.buscarPorId(id_veterinario));
         consulta.setPet(petService.buscarPorId(id_pet));
         return consultaRepository.save(consulta);

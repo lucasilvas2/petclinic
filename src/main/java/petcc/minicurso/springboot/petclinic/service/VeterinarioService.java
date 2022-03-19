@@ -5,7 +5,6 @@ import petcc.minicurso.springboot.petclinic.model.Veterinario;
 import petcc.minicurso.springboot.petclinic.repository.VeterinarioRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VeterinarioService {

@@ -1,6 +1,5 @@
 package petcc.minicurso.springboot.petclinic.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import petcc.minicurso.springboot.petclinic.model.Dono;
 import petcc.minicurso.springboot.petclinic.repository.DonoRepository;
@@ -24,6 +23,7 @@ public class DonoService {
     public void deletar(Long id){
         donoRepository.deleteById(id);
     }
+
     public List<Dono> buscarTodosDonos(){
         return donoRepository.findAll();
     }

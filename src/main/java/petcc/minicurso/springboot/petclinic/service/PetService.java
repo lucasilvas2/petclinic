@@ -1,7 +1,6 @@
 package petcc.minicurso.springboot.petclinic.service;
 
 import org.springframework.stereotype.Service;
-import petcc.minicurso.springboot.petclinic.model.Dono;
 import petcc.minicurso.springboot.petclinic.model.Pet;
 import petcc.minicurso.springboot.petclinic.repository.PetRepository;
 
