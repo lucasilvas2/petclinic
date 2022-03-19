@@ -15,7 +15,6 @@ public class DonoController {
     private DonoService donoService;
 
     public DonoController(DonoService donoService) {
-        super();
         this.donoService = donoService;
     }
 
@@ -29,7 +28,7 @@ public class DonoController {
         }
     }
 
-    @PostMapping(value = "/dono/deletar/{id_dono}")
+    @DeleteMapping(value = "/dono/deletar/{id_dono}")
     public ResponseEntity<?> deletar(@PathVariable Long id_dono){
         Dono donoSalvo = donoService.buscarDonoPorID(id_dono);
         if (donoSalvo != null){

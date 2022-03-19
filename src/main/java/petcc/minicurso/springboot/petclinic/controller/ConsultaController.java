@@ -15,7 +15,6 @@ public class ConsultaController {
     private ConsultaService consultaService;
 
     public ConsultaController(ConsultaService consultaService) {
-        super();
         this.consultaService = consultaService;
     }
 
@@ -29,7 +28,7 @@ public class ConsultaController {
         }
     }
 
-    @PostMapping(value = "/consulta/deletar/{id_consulta}")
+    @DeleteMapping(value = "/consulta/deletar/{id_consulta}")
     public ResponseEntity<?> deletar(@PathVariable Long id_consulta){
         Consulta consultaSalva = consultaService.buscarPorId(id_consulta);
         if (consultaSalva != null){

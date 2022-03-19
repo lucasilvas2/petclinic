@@ -15,7 +15,6 @@ public class PetController {
     private PetService petService;
 
     public PetController(PetService petService) {
-        super();
         this.petService = petService;
     }
 
@@ -29,7 +28,7 @@ public class PetController {
         }
     }
 
-    @PostMapping(value = "/pet/deletar/{id_pet}")
+    @DeleteMapping(value = "/pet/deletar/{id_pet}")
     public ResponseEntity<?> deletar(@PathVariable Long id_dono){
         Pet petSalvo = petService.buscarPorId(id_dono);
         if (petSalvo != null){

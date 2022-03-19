@@ -29,7 +29,7 @@ public class VeterinarioController {
         }
     }
 
-    @PostMapping( value = "/veterinario/deletar/{id_veterianrio}")
+    @DeleteMapping( value = "/veterinario/deletar/{id_veterianrio}")
     public ResponseEntity<?> deletar(@PathVariable Long id_veterianrio){
         Veterinario veterinarioSalvo = veterinarioService.buscarPorId(id_veterianrio);
         if (veterinarioSalvo != null){
