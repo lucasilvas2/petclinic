@@ -1,5 +1,7 @@
 package petcc.minicurso.springboot.petclinic.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +20,10 @@ public class DonoController {
         this.donoService = donoService;
     }
 
+
     @PostMapping(value = "/dono/cadastrar/")
-    public ResponseEntity<?> cadastrar(@RequestBody Dono dono){
+    @ApiOperation(value = "Rota para cadastro de Donos")
+    public ResponseEntity<?> cadastrar(@ApiParam(value = "Informações do Dono em formato em JSON") @RequestBody Dono dono){
         Dono donoSalvo = donoService.cadastrar(dono);
         if(donoSalvo != null){
             return new ResponseEntity<>(donoSalvo, HttpStatus.OK);
@@ -29,7 +33,8 @@ public class DonoController {
     }
 
     @DeleteMapping(value = "/dono/deletar/{id_dono}")
-    public ResponseEntity<?> deletar(@PathVariable Long id_dono){
+    @ApiOperation(value = "Rota para deletar um Dono no cadastro por ID")
+    public ResponseEntity<?> deletar(@ApiParam(value = "id_pessoa do Dono") @PathVariable Long id_dono){
         Dono donoSalvo = donoService.buscarDonoPorID(id_dono);
         if (donoSalvo != null){
             donoService.deletar(id_dono);
@@ -40,6 +45,7 @@ public class DonoController {
     }
 
     @GetMapping(value = "/dono/buscar/")
+    @ApiOperation(value = "Rota para buscar todos os Donos cadastrados")
     public ResponseEntity<?> buscar(){
         List<Dono> lista_dono = donoService.buscarTodosDonos();
         if (!lista_dono.isEmpty()){
@@ -50,7 +56,8 @@ public class DonoController {
     }
 
     @GetMapping(value = "/dono/buscar/{id_dono}")
-    public ResponseEntity<?> buscar(@PathVariable Long id_dono){
+    @ApiOperation(value = "Rota para buscar um Dono por ID")
+    public ResponseEntity<?> buscar(@ApiParam(value = "id_pessoa do Dono") @PathVariable Long id_dono){
         Dono donoSalvo = donoService.buscarDonoPorID(id_dono);
         if (donoSalvo != null){
             return new ResponseEntity<>(donoSalvo, HttpStatus.OK);
