@@ -21,9 +21,10 @@ public class PetController {
     }
 
     @PostMapping(value = "/pet/cadastrar/{id_dono}")
-    @ApiOperation(value = "Rota para cadastro de Pets")
+    @ApiOperation(value = "Rota para cadastro de Pets informando o id_pessoa do Dono")
     public ResponseEntity<?> cadastrar(@ApiParam(value = "Informações do Pet em formato em JSON") @RequestBody Pet pet,
-                                       @ApiParam(value = "id_pessoa do Dono") @PathVariable Long id_dono){
+                                       @ApiParam(value = "id_pessoa do Dono (OBS: Caso deseje cadastrar sem o dono passe o valor 0)") @PathVariable Long id_dono){
+//        System.out.println(id_dono);
         Pet petSalvo = petService.cadastrar(pet, id_dono);
         if (pet != null){
             return new ResponseEntity<>(petSalvo, HttpStatus.OK);
@@ -31,6 +32,18 @@ public class PetController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+//    @PostMapping(value = "/pet/cadastrar/")
+//    @ApiOperation(value = "Rota para cadastro de Pets")
+//    public ResponseEntity<?> cadastrar(@ApiParam(value = "Informações do Pet em formato em JSON") @RequestBody Pet pet)
+//    {
+//        Pet petSalvo = petService.cadastrar(pet, null);
+//        if (pet != null){
+//            return new ResponseEntity<>(petSalvo, HttpStatus.OK);
+//        }else{
+//            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+//        }
+//    }
 
     @DeleteMapping(value = "/pet/deletar/{id_pet}")
     @ApiOperation(value = "Rota para deletar um Pet no cadastro por ID")

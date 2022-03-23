@@ -1,5 +1,8 @@
 package petcc.minicurso.springboot.petclinic.model;
 
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
@@ -7,21 +10,23 @@ import javax.validation.constraints.Email;
 public class Pessoa {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long idPessoa;
+    private Long id_pessoa;
 
+    @ApiModelProperty( value = "Nome da Pessoa", dataType = "STRING", example = "João Maria")
     @Column(columnDefinition = "TEXT")
     private String nome;
 
+    @ApiModelProperty( value = "Email", dataType = "STRING", example = "seuEmail@email.com")
     @Email
     @Column(unique = true)
     private String email;
 
     public long getIdPessoa() {
-        return idPessoa;
+        return id_pessoa;
     }
 
     public void setIdPessoa(Long idPessoa) {
-        this.idPessoa = idPessoa;
+        this.id_pessoa = id_pessoa;
     }
 
     public String getNome() {

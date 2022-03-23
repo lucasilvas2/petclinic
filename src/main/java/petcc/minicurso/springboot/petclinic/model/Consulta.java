@@ -1,5 +1,7 @@
 package petcc.minicurso.springboot.petclinic.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -7,28 +9,32 @@ import java.time.LocalDate;
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idConsulta;
+    private Long id_consulta;
 
+    @ApiModelProperty( value = "Status da consulta", dataType = "STRING", example = "Agendada")
     @Column(columnDefinition = "TEXT")
     private String statusConsulta;
 
+    @ApiModelProperty(value = "Data da consulta", dataType = "DATE", example = "2022-02-20")
     @Column(columnDefinition = "DATE")
     private LocalDate data;
 
+    @ApiModelProperty(value = "Id_veterinario do Veterinário", dataType = "LONG", example = "1")
     @ManyToOne
     @JoinColumn(name = "id_veterinario")
     private Veterinario veterinario;
 
+    @ApiModelProperty(value = "Id_pet do Pet", dataType = "LONG", example = "1")
     @ManyToOne
     @JoinColumn(name = "id_pet")
     private Pet pet;
 
     public long getIdConsulta() {
-        return idConsulta;
+        return id_consulta;
     }
 
     public void setIdConsulta(long idConsulta) {
-        this.idConsulta = idConsulta;
+        this.id_consulta = id_consulta;
     }
 
     public String getStatusConsulta() {

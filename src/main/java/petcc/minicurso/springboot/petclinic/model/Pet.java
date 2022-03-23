@@ -1,5 +1,7 @@
 package petcc.minicurso.springboot.petclinic.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -9,12 +11,15 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPet;
 
+    @ApiModelProperty(value = "Nome do pet", dataType = "STRING", example = "Totó")
     @Column(columnDefinition = "TEXT")
     private String nome;
 
+    @ApiModelProperty(value = "Data de aniversário", dataType = "DATE", example = "2000-02-20")
     @Column(columnDefinition = "DATE")
     private LocalDate aniversario;
 
+    @ApiModelProperty(value = "Id_pessoa do dono", dataType = "LONG", example = "1")
     @ManyToOne
     @JoinColumn(name = "id_dono")
     private Dono dono;
