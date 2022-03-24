@@ -2,6 +2,7 @@ package petcc.minicurso.springboot.petclinic.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,4 +67,38 @@ public class ConsultaController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping(value = "/consulta/buscar/veterinario/{id_veterinario}")
+    @ApiOperation(value = "Rota para buscar todas as Consultas por Veterinario")
+    public ResponseEntity<?> buscarPorVeterinario(@ApiParam(value = "id_veterinario da Consulta") @PathVariable Long id_veterinario){
+        List<Consulta> lista_consulta = consultaService.buscarConsultaPorVeterinario(id_veterinario);
+        if(!lista_consulta.isEmpty()){
+            return new ResponseEntity<>(lista_consulta, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = "/consulta/buscar/status/{status}")
+    @ApiOperation(value = "Rota para buscar todas as Consultas por Veterinario")
+    public ResponseEntity<?> buscarPorVeterinario(@ApiParam(value = "status da Consulta") @PathVariable String status){
+        List<Consulta> lista_consulta = consultaService.buscarConsultaPorStatus(status);
+        if(!lista_consulta.isEmpty()){
+            return new ResponseEntity<>(lista_consulta, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+//    @GetMapping(value = "/consulta/buscar/status/{status}")
+//    @ApiOperation(value = "Rota para buscar Consulta por ID e Veterinario")
+//    public ResponseEntity<?> buscarPorIDEVeterinario(@ApiParam(value = "id_consulta da Consulta") @PathVariable Long id_consulta,
+//                                                  @ApiParam(value = "id_veterianrio da Consulta") @PathVariable Long id_veterinario){
+//        Consulta consultaSalva = consultaService.bucarConsultaPorIdEVeterinario(id_consulta, id_veterinario);
+//        if(consultaSalva != null){
+//            return new ResponseEntity<>(consultaSalva, HttpStatus.OK);
+//        }else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 }

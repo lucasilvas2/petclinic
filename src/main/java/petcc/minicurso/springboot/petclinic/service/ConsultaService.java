@@ -2,6 +2,7 @@ package petcc.minicurso.springboot.petclinic.service;
 
 import org.springframework.stereotype.Service;
 import petcc.minicurso.springboot.petclinic.model.Consulta;
+import petcc.minicurso.springboot.petclinic.model.Veterinario;
 import petcc.minicurso.springboot.petclinic.repository.ConsultaRepository;
 
 import java.util.List;
@@ -37,4 +38,17 @@ public class ConsultaService {
         return consultaRepository.findById(id).isPresent() ? consultaRepository.findById(id).get() : null;
     }
 
+    public List<Consulta> buscarConsultaPorVeterinario(Long id_veterinario){
+        Veterinario veterinario = veterinarioService.buscarPorId(id_veterinario);
+        return consultaRepository.findByVeterinario(veterinario);
+    }
+
+    public List<Consulta> buscarConsultaPorStatus(String status){
+        return consultaRepository.findByStatusConsulta(status);
+    }
+
+//    public Consulta bucarConsultaPorIdEVeterinario(Long id_consulta, Long id_veterinario){
+//        Veterinario veterinario = veterinarioService.buscarPorId(id_veterinario);
+//        return consultaRepository.findById_consultaAndVeterinario(id_consulta, veterinario);
+//    }
 }
