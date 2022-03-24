@@ -34,5 +34,4 @@ public class VeterinarioService {
         return veterinarioRepository.findById(id).isPresent() ? veterinarioRepository.findById(id).get() : null;
     }
 
-
 }

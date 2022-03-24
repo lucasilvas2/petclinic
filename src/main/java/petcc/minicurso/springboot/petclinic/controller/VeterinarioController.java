@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import petcc.minicurso.springboot.petclinic.model.Consulta;
 import petcc.minicurso.springboot.petclinic.model.Veterinario;
+import petcc.minicurso.springboot.petclinic.service.ConsultaService;
 import petcc.minicurso.springboot.petclinic.service.VeterinarioService;
 
 import java.util.List;
@@ -15,10 +17,11 @@ import java.util.List;
 public class VeterinarioController {
 
     private VeterinarioService veterinarioService;
+    private ConsultaService consultaService;
 
-    public VeterinarioController(VeterinarioService veterinarioService) {
-        super();
+    public VeterinarioController(VeterinarioService veterinarioService, ConsultaService consultaService) {
         this.veterinarioService = veterinarioService;
+        this.consultaService = consultaService;
     }
 
     @PostMapping(value = "/veterinario/cadastrar/")
@@ -61,6 +64,22 @@ public class VeterinarioController {
         Veterinario veterinarioSalvo = veterinarioService.buscarPorId(id_veterinario);
         if (veterinarioSalvo != null) {
             return new ResponseEntity<>(veterinarioSalvo, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping(value = "/veterinario/consulta/alterar/{id_veterinario}/{id_consulta}/{status_consulta}")
+    @ApiOperation(value = "Rota para alterar a consulta de um veterinario (Aceitar ou Recusar)")
+    public ResponseEntity<?> buscar(@ApiParam(value = "id_pessoa do Veterinário") @PathVariable Long id_veterinario,
+                                    @ApiParam(value = "id_consulta da Consulta") @PathVariable Long id_consulta,
+                                    @ApiParam(value = "status da cosulta") @PathVariable String status_consulta){
+        Consulta consultaSalva = consultaService.buscarPorId(id_consulta);
+        Veterinario veterinarioSalvo = veterinarioService.buscarPorId(id_veterinario);
+        if (veterinarioSalvo != null && consultaSalva != null && consultaSalva.getVeterinario().equals(veterinarioSalvo)) {
+            consultaSalva.setStatusConsulta(status_consulta);
+            consultaService.cadastrar(consultaSalva, id_veterinario, consultaSalva.getPet().getIdPet());
+            return new ResponseEntity<>(HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
