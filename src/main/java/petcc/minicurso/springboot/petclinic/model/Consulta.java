@@ -11,7 +11,7 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_consulta;
 
-    @ApiModelProperty( value = "Status da consulta", dataType = "STRING", example = "Agendada")
+    @ApiModelProperty( value = "Status da consulta", dataType = "STRING")
     @Column(columnDefinition = "TEXT")
     private String statusConsulta;
 

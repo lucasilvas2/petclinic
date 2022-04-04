@@ -11,6 +11,7 @@ import petcc.minicurso.springboot.petclinic.service.ConsultaService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(value = "/api")
 public class ConsultaController {
@@ -87,6 +88,34 @@ public class ConsultaController {
             return new ResponseEntity<>(lista_consulta, HttpStatus.OK);
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping(value = "/consulta/aceitar/{id_consulta}")
+    @ApiOperation(value = "Rota para aceitar Consulta")
+    public ResponseEntity<?> aceitarConsulta(@ApiParam(value = "id_consulta da Consulta") @PathVariable Long id_consulta){
+        Consulta consultaSalva = consultaService.buscarPorId(id_consulta);
+
+        if (consultaSalva != null){
+            consultaSalva.setStatusConsulta("1");
+            consultaService.cadastrar(consultaSalva, consultaSalva.getVeterinario().getIdPessoa(), consultaSalva.getPet().getIdPet());
+            return new ResponseEntity<>(consultaSalva, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @PostMapping(value = "/consulta/rejeitar/{id_consulta}")
+    @ApiOperation(value = "Rota para rejeitar Consulta")
+    public ResponseEntity<?> rejeitarConsulta(@ApiParam(value = "id_consulta da Consulta") @PathVariable Long id_consulta){
+        Consulta consultaSalva = consultaService.buscarPorId(id_consulta);
+
+        if (consultaSalva != null){
+            consultaSalva.setStatusConsulta("2");
+            consultaService.cadastrar(consultaSalva, consultaSalva.getVeterinario().getIdPessoa(), consultaSalva.getPet().getIdPet());
+            return new ResponseEntity<>(consultaSalva, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
     }
 

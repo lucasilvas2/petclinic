@@ -11,6 +11,7 @@ import petcc.minicurso.springboot.petclinic.service.PetService;
 import javax.persistence.GeneratedValue;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(value = "/api")
 public class PetController {
